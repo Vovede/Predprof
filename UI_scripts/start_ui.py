@@ -42,7 +42,6 @@ class Monitoringiop(QMainWindow):
 
 
 
-    #
     def download(self):
         # Загрузка данных из файла и запись в таблицу QTableWidgetItem
         fname = QFileDialog.getOpenFileName(self, 'Выбрать файл', '')[0]

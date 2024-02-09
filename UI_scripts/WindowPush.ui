@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PushUp</class>
+ <widget class="QWidget" name="PushUp">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>100</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>300</width>
+    <height>100</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>300</width>
+    <height>100</height>
+   </size>
+  </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Push</string>
+  </property>
+  <property name="windowOpacity">
+   <double>0.900000000000000</double>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(211, 211, 211);
+</string>
+  </property>
+  <property name="inputMethodHints">
+   <set>Qt::ImhNone</set>
+  </property>
+  <widget class="QPushButton" name="MessagePush">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>300</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
+

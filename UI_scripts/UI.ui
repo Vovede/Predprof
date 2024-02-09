@@ -60,7 +60,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>3</number>
         </property>
         <property name="documentMode">
          <bool>true</bool>
@@ -675,20 +675,6 @@
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QPushButton" name="homeBtnAnalisTab">
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>На главную</string>
-              </property>
-             </widget>
-            </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_10">
               <property name="font">
@@ -727,20 +713,6 @@
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
-             <widget class="QPushButton" name="pushButton_10">
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Экспорт</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="1">
              <widget class="PlotWidget" name="graphicsView_3"/>
             </item>
@@ -749,6 +721,20 @@
             </item>
             <item row="1" column="0">
              <widget class="PlotWidget" name="graphicsView_2"/>
+            </item>
+            <item row="4" column="0">
+             <widget class="QPushButton" name="homeBtnAnalisTab">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>На главную</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>

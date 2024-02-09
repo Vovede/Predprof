@@ -2,9 +2,6 @@ import sqlite3
 import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import *
-# import webbrowser
-# import requests
-# import folium
 from database import readFile, db_querry
 
 conn = sqlite3.connect('bd.db')
@@ -45,8 +42,7 @@ class Monitoringiop(QMainWindow):
 
 
 
-
-    # Загрузка
+    #
     def download(self):
         # Загрузка данных из файла и запись в таблицу QTableWidgetItem
         fname = QFileDialog.getOpenFileName(self, 'Выбрать файл', '')[0]

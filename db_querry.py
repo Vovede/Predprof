@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('../UI_scripts/bd.db')
+conn = sqlite3.connect('bd.db')
 cursor = conn.cursor()
 
 

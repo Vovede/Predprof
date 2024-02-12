@@ -60,7 +60,7 @@
          <enum>QTabWidget::Rounded</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <property name="documentMode">
          <bool>true</bool>
@@ -766,24 +766,23 @@
              <number>10</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_12">
-              <property name="text">
-               <string>График</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QGraphicsView" name="graphicsView_5"/>
-            </item>
-            <item>
              <widget class="QLabel" name="label_11">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="acceptDrops">
+               <bool>false</bool>
+              </property>
               <property name="text">
-               <string>Вывод</string>
+               <string>Прогноз</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QTextEdit" name="textEdit"/>
+             <widget class="QTextBrowser" name="textBrowser_2"/>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_13">
@@ -853,7 +852,7 @@
              </layout>
             </item>
             <item>
-             <widget class="QTableWidget" name="tableWidgetMonitoring"/>
+             <widget class="QTextBrowser" name="textBrowser"/>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_8">

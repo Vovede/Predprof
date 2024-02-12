@@ -9,7 +9,7 @@ from emulation import emulationData
 from ml import modelML
 from get_current_meteo_situation import meteo_data
 
-conn = sqlite3.connect('UI_scripts/bd.db')
+conn = sqlite3.connect('bd.db')
 cursor = conn.cursor()
 
 class Monitoringiop(QMainWindow):
@@ -33,20 +33,28 @@ class Monitoringiop(QMainWindow):
             # 'Эмуляция': [self.btnEmulation.clicked.connect(self.navigate), None]
         }
 
+        #Загрузка данных
         self.downloadFileData.clicked.connect(self.download)
 
+        #Эмуляция данных
         self.btnEmulation.clicked.connect(self.emulationData)
 
+        #Навигация
         self.homeBtnDowloadTab.clicked.connect(self.homeGo)
         self.homeBtnVisualTab.clicked.connect(self.homeGo)
         self.homeBtnAnalisTab.clicked.connect(self.homeGo)
         self.homeBtnPredict.clicked.connect(self.homeGo)
         self.homeBtnMonitoringtab.clicked.connect(self.homeGo)
 
+        #Визуализация
         self.pushBtnCheckboxesClear.clicked.connect(self.clearCheckBoxes)
         self.clearBtnGraphView.clicked.connect(self.clear_graph)
         self.visualizationBtn.clicked.connect(self.visualization)
 
+        #Прогноз
+        self.predictBtn.clicked.connect(self.predictTab)
+
+        #Мониторинг
         self.btnUpdateMonitoring.clicked.connect(self.loadTableMonitoringData)
 
 
@@ -107,17 +115,11 @@ class Monitoringiop(QMainWindow):
             self.labelSourceMeteoData.setText('Источник: open-meteo.com')
             print(self.selectedItemListWidget)
             infoStation = self.selectedItemListWidget[0]
+            print(infoStation)
             self.labelCurrentStationMonitoring.setText(f'Текущая метеоситуация: {" ".join(infoStation.split())}')
             station = db_querry.queryStation(infoStation.split()[0])
             lat, long = station[0][3], station[0][4]
             print(f"longitude: {lat}, latitude: {long}")
-            paramsPrognose = {
-                "latitude": lat,
-                "longitude": long,
-                "hourly": ["temperature_2m", "relative_humidity_2m", "pressure_msl"],
-                "past_days": 92,
-                "forecast_days": 1
-            }
             paramsCurrent = {
                 "latitude": lat,
                 "longitude": long,
@@ -129,27 +131,17 @@ class Monitoringiop(QMainWindow):
                 "timezone": "Europe/Moscow",
                 "forecast_days": 1
             }
-            data = meteo_data(lat, long, params=paramsCurrent)
-            dataPrognose = meteo_data(lat, long, params=paramsPrognose)
-            predict = modelML(dataPrognose)
-            print(predict)
-            self.textEditPredict.setText(predict)
+            dataTemp = meteo_data(lat, long, params=paramsCurrent)
+            # print(predict)
+            data = []
+            for i in dataTemp:
+                data.append(" ".join(i))
+            data = "\n".join(data)
+            print(data)
+            # self.textEditPredict.setText(predict)
+            self.textBrowser.setText(data)
             # print(dataPrognose)
             # print(data)
-
-            self.tableWidgetMonitoring.setColumnCount(2)
-            self.tableWidgetMonitoring.setHorizontalHeaderLabels(
-                ['Параметр', 'Значение']
-            )
-            self.tableWidgetMonitoring.setRowCount(0)
-            for i in range(len(data)):
-                self.tableWidgetMonitoring.setRowCount(self.tableWidgetMonitoring.rowCount() + 1)
-                for j in range(len(data[i])):
-                    # Отрисовка содержимого QTableWidgetItem
-                    self.tableWidgetMonitoring.setItem(i, j, QTableWidgetItem(str(data[i][j])))
-
-            self.tableWidgetMonitoring.resizeColumnsToContents()
-            print(QTableWidget)
 
             self.pushUp('Данные загружены')
         except Exception as error:
@@ -157,9 +149,34 @@ class Monitoringiop(QMainWindow):
             self.pushUp('Ошибка мониторинга')
 
 
+    def predictTab(self):
+        infoStation = self.selectedItemListWidget[0]
+        self.labelCurrentStationMonitoring.setText(f'Текущая метеоситуация: {" ".join(infoStation.split())}')
+        station = db_querry.queryStation(infoStation.split()[0])
+        lat, long = station[0][3], station[0][4]
+        paramsPrognose = {
+            "latitude": lat,
+            "longitude": long,
+            "hourly": ["temperature_2m", "relative_humidity_2m", "pressure_msl"],
+            "past_days": 92,
+            "forecast_days": 7
+        }
+
+        dataTemp = meteo_data(lat, long, params=paramsPrognose)
+        predict = modelML(dataTemp)
+
+        self.textBrowser_2.setText(predict)
+        self.pushUp("Выведен прогноз")
+
+
+
     # Визуализация
     def visualization(self):
         self.graphicsView.clear()
+        self.graphicsView_2.clear()
+        self.graphicsView_3.clear()
+        self.graphicsView_4.clear()
+        self.graphicsView_6.clear()
 
         self.selectedItemListWidget = [x.text() for x in self.listWidgetStationMeteo.selectedItems()]
         print(self.listWidgetStationMeteo.selectedItems())
@@ -208,10 +225,12 @@ class Monitoringiop(QMainWindow):
         self.checkBoxPrecipitation.setChecked(False)
         self.checkBoxDirectionWind.setChecked(False)
         self.checkBoxTemperature.setChecked(False)
+        self.pushUp("Чекбоксы очищены")
 
 
     def clear_graph(self):
         self.graphicsView.clear()
+        self.pushUp("График очищен")
 
 
     # Навигация
@@ -249,43 +268,6 @@ class Monitoringiop(QMainWindow):
 
     def loadTable(self):
         pass
-
-
-    # Местоположение
-    # def ip_a(self):
-    #     def get_ip():
-    #         response = requests.get('https://api64.ipify.org?format=json').json()
-    #         return response["ip"]
-    #
-    #     def get_location():
-    #         ip_address = get_ip()
-    #         location_data = {
-    #             "ip": ip_address}
-    #         n = ''.join([j for i, j in location_data.items()])
-    #         return n
-    #
-    #     def main_1():
-    #         try:
-    #              url = requests.get('https://api64.ipify.org?format=json')
-    #              if url:
-    #                  ip = get_location()
-    #                  n = []
-    #                  response = requests.get(f'http://ip-api.com/json/{ip}').json()
-    #                  for i, j in response.items():
-    #                      if i == 'lat' or i == 'lon':
-    #                          n.append(j)
-    #                  m = folium.Map(location=[n[0], n[1]], zoom_start=15)
-    #                  folium.Marker([n[0], n[1]], poput='Место 1', tooltip=None).add_to(m)
-    #                  m.save('weather.html')
-    #                  webbrowser.open('weather.html')
-    #
-    #
-    #         except requests.ConnectionError as e:
-    #             print(e)
-    #
-    #
-    #     if __name__ == '__main__':
-    #         main_1()
 
 
 if __name__ == '__main__':

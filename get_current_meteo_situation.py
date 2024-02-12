@@ -23,20 +23,20 @@ def meteo_data(latitude, longitude, params):
         current = response.Current()
 
         result.append([f"Текущее время", f"{time.gmtime(float(current.Time()))}"])
-        result.append([f"Текущая температура 2м", f"{current.Variables(0).Value()}"])
-        result.append([f"Текущая относительная влажность 2м", f"{current.Variables(1).Value()}"])
-        result.append([f"Текущая температура", f"{current.Variables(2).Value()}"])
-        result.append([f"Осадки", f"{current.Variables(3).Value()}"])
-        result.append([f"Дождь", f"{current.Variables(4).Value()}"])
-        result.append([f"Ливни", f"{current.Variables(5).Value()}"])
-        result.append([f"Снегопад", f"{current.Variables(6).Value()}"])
+        result.append([f"Текущая температура 2м", f"{round(current.Variables(0).Value())}"])
+        result.append([f"Текущая относительная влажность 2м", f"{round(current.Variables(1).Value())}"])
+        result.append([f"Текущая температура", f"{round(current.Variables(2).Value())}"])
+        result.append([f"Осадки", f"{round(current.Variables(3).Value())}"])
+        result.append([f"Дождь", f"{round(current.Variables(4).Value())}"])
+        result.append([f"Ливни", f"{round(current.Variables(5).Value())}"])
+        result.append([f"Снегопад", f"{round(current.Variables(6).Value())}"])
         # result.append([f"weather_code", f"{current.Variables(7).Value()}"])
-        result.append([f"Облачность", f"{current.Variables(8).Value()}"])
-        result.append([f"Давление", f"{current.Variables(9).Value()}"])
-        result.append([f"Поверхностное давление", f"{current.Variables(10).Value()}"])
-        result.append([f"Скорость метра на 10м", f"{current.Variables(11).Value()}"])
-        result.append([f"Направление ветра на 10м", f"{current.Variables(12).Value()}"])
-        result.append([f"Порывыв ветра на 10м", f"{current.Variables(13).Value()}"])
+        result.append([f"Облачность",               f"{round(current.Variables(8).Value())}"])
+        result.append([f"Давление",                 f"{round(current.Variables(9).Value())}"])
+        result.append([f"Поверхностное давление",   f"{round(current.Variables(10).Value())}"])
+        result.append([f"Скорость метра на 10м",    f"{round(current.Variables(11).Value())}"])
+        result.append([f"Направление ветра на 10м", f"{round(current.Variables(12).Value())}"])
+        result.append([f"Порывыв ветра на 10м",     f"{round(current.Variables(13).Value())}"])
     if "past_days" in params.keys():
         response = responses[0]
 
@@ -63,10 +63,26 @@ def meteo_data(latitude, longitude, params):
 
     return result
 
-# lat, long = 80.6, 58.1
+lat, long = 80.6, 58.1
 # # print(f"longitude: {lat}, latitude: {long}")
+# paramsCurrent = {
+#                 "latitude": lat,
+#                 "longitude": long,
+#                 "current": ["temperature_2m", "relative_humidity_2m", "apparent_temperature", "is_day", "precipitation",
+#                             "rain",
+#                             "showers", "snowfall", "weather_code", "cloud_cover", "pressure_msl", "surface_pressure",
+#                             "wind_speed_10m", "wind_direction_10m", "wind_gusts_10m"],
+#                 "wind_speed_unit": "ms",
+#                 "timezone": "Europe/Moscow",
+#                 "forecast_days": 1
+#             }
+
+
 # paramsPrognose = {
-#     "latitude": lat,
-#     "longitude": long,
-#     "hourly": ["temperature_2m", "relative_humidity_2m", "pressure_msl"],
-#     "past_days": 92,
+#                 "latitude": lat,
+#                 "longitude": long,
+#                 "hourly": ["temperature_2m", "relative_humidity_2m", "pressure_msl"],
+#                 "past_days": 92,
+#                 "forecast_days": 1
+#             }
+# print(meteo_data(lat, long, paramsPrognose))
